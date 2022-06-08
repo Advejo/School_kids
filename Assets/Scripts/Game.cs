@@ -10,6 +10,8 @@ public class  Game : MonoBehaviour
     
     public int[] array = new int[] { 4, 16, 3, 8 };
     public Text[] buttonText;
+    public Text[] text;
+    public int error = 0;
 
     public void showForm()
     {
@@ -22,9 +24,9 @@ public class  Game : MonoBehaviour
     
     public void NextQuestion()
     {
-        
         correctAnswer = Random.Range(0, array.Length ); 
-        Debug.Log(array[correctAnswer].ToString());
+        text[0].text =  array[correctAnswer].ToString(); 
+        
  
     }
     void Start()
@@ -38,19 +40,29 @@ public class  Game : MonoBehaviour
         showForm();
     }
     public void OnClik()
-    {
+    { 
         SceneManager.LoadScene("MainMenu");
+    }
+    public void OnWasted()
+    { 
+        SceneManager.LoadScene("Wasted");
     }
     public void check(int index)
     {
         if(index == correctAnswer )
         {
-            Debug.Log("все верно");
+            text[1].text = "<color=green>Good</color>";
             NextQuestion();
             
         }else
         {
-            Debug.Log("неправельный ответ");
+            error += 1;
+            text[1].text = "<color=red>wrong</color>";
+            text[2].text = error.ToString();
+            if(error == 5)
+            {
+                OnWasted();
+            }
         }
     }
 }

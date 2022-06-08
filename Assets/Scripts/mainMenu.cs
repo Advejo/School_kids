@@ -9,6 +9,10 @@ public class mainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void OnWasted()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     // Start is called before the first frame update
     void Start()
     {
