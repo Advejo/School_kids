@@ -8,8 +8,9 @@ public class  Game : MonoBehaviour
 {
 	
     int correctAnswer = 0  ;
-    int[] example = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] showEx = new int[] {0,0,0,0};
+    List<int> example = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    List<int> showEx = new List<int> {0,0,0,0};
+    List<int> examplesLeft = new List<int>{0, 0, 0, 0, 0, 0, 0, 0, 0};
     public Text[] buttonText;
     public Text placeholder;
     public Text status;
@@ -19,7 +20,7 @@ public class  Game : MonoBehaviour
 
     public void showForm()
     {
-        for(int i=0; i<showEx.Length && i<buttonText.Length; i++)
+        for(int i=0; i<showEx.Count && i<buttonText.Length; i++)
         {
             buttonText[i].text = showEx[i].ToString(); 
         }
@@ -27,13 +28,15 @@ public class  Game : MonoBehaviour
     
     public void NextQuestion()
     {
-        for(int i=0; i<showEx.Length && i<buttonText.Length; i++)
+        for(int i=0; i<showEx.Count && i<buttonText.Length; i++)
         {
-            showEx[i] = example[Random.Range(0, example.Length )];
+            examplesLeft.Add(example[Random.Range(0, example.Count )]);
+            examplesLeft.RemoveAt(i);
+            showEx[i] = examplesLeft[Random.Range(0, examplesLeft.Count )];
             correctAnswer += 1 ;
         }
         
-        correctAnswer = Random.Range(0, showEx.Length ); 
+        correctAnswer = Random.Range(0, showEx.Count); 
         placeholder.text =  showEx[correctAnswer].ToString(); 
         
  
